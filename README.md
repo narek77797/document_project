@@ -1,39 +1,46 @@
 # Test
 
-## Содержание
+## Content
 
-[Установка](#установка)
+[Installation](#Installation)
 
-## Установка
+## Installation
 ```bash
-$ git clone git@github.com:Narek02161/trading_analytics_test.git
+$ git clone git@github.com:narek77797/document_project.git
 $ cp .env.example .env
 $ chmod o+w .env
 $ make init
 ```
 
-## Запуск с нуля с подготовленной базой
+## Starting from scratch with a prepared database
 ```bash
 make init
 ```
 
-## Остановка приложения
+## Stopping the application
 ``` bash
 make down
 ```
 
-## Доступы к бд
-**БД:** `test`
+## Database access
+**DB:** `test`
 
-**Юзер:** `test`
+**User:** `test`
 
-**Пароль:** `mysecretpassword`
+**Password:** `mysecretpassword`
 
-**Порт:** `5432`
+**Port:** `3306`
 
-## Версии
-**PHP-FPM:** 8.1.9 под Alpine 3.16
+## Existing User
 
-**PgsqlDB:** 14.4 под Alpine 3.16
+**email:** `adminuser@gmail.com`
 
-**Nginx:** 1.23.1 под Alpine 3.16
+**password:** `123456`
+
+## Versions
+
+**PHP-FPM:** 8.1.9 under Alpine 3.16
+
+**MysqlDB:** 10.5
+
+**Nginx:** 1.23.1 under Alpine 3.16

@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Document\DocumentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('auth')->group(function () {
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::prefix('document')->group(function () {
+        Route::get('/', [DocumentController::class, 'index']);
+        Route::get('/{id}', [DocumentController::class, 'show']);
+    });
 });

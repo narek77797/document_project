@@ -13,7 +13,7 @@ services:
         networks:
             - server-network
         depends_on:
-            - server-postgres
+            - server-mysql
 
     server-nginx:
         image: nginx:1.23.1-alpine
@@ -30,20 +30,20 @@ services:
         depends_on:
             - server-php
 
-    server-postgres:
-        image: postgres:14.4-alpine
-        container_name: server-postgres
+    server-mysql:
+        image: mariadb:10.5
+        container_name: server-mysql
         restart: unless-stopped
         ports:
-            - "5434:5432"
+            - '${DOCKER_MYSQL_PORT:-3306}:3306'
         networks:
             - server-network
         environment:
-            POSTGRES_USER: test
-            POSTGRES_PASSWORD: secret
-            POSTGRES_DB: test
-            POSTGRES_HOST_AUTH_METHOD: 'trust'
-        hostname: postgres
+            - MYSQL_DATABASE=${DOCKER_MYSQL_DATABASE}
+            - MYSQL_ROOT_PASSWORD=${DOCKER_MYSQL_ROOT_PASSWORD}
+            - MYSQL_USER=${DOCKER_MYSQL_USER}
+            - MYSQL_PASSWORD=${DOCKER_MYSQL_PASSWORD}
+        hostname: mysql
 
 networks:
     server-network:
