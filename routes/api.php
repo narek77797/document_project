@@ -20,8 +20,6 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::prefix('document')->group(function () {
-        Route::get('/', [DocumentController::class, 'index']);
-        Route::get('/{id}', [DocumentController::class, 'show']);
-    });
+    Route::get('/documents', [DocumentController::class, 'index']);
+    Route::get('/document/{id}', [DocumentController::class, 'show']);
 });
