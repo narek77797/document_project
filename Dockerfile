@@ -1,26 +1,29 @@
-FROM php:8.1.9-fpm-alpine3.16
+FROM php:8.1-fpm
 
-COPY docker/services/php/php.ini /usr/local/etc/php/php.ini
+RUN apt-get update && apt-get install -y \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip \
+    git \
+    curl
 
-# зависимости
-RUN docker-php-ext-configure opcache --enable-opcache && \
-    docker-php-ext-install pdo pdo_mysql && \
-    docker-php-ext-install pdo pdo_mysql && \
-    apk update && apk add bash unzip git
+RUN apt-get update && apt-get install -y libpq-dev libzip-dev libgd-dev && docker-php-ext-install pdo pdo_pgsql pdo_mysql gd bcmath zip
 
-RUN set -ex \
-  && apk --no-cache add \
-    postgresql-dev \
-    libzip-dev
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-RUN docker-php-ext-install pdo pdo_pgsql zip
+RUN groupadd -g 1000 appuser && \
+    useradd -u 1000 -ms /bin/bash -g appuser appuser
 
-COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+USER appuser
 
-RUN find . -type f -exec chmod 664 {} \; && \
-    find . -type d -exec chmod 775 {} \; && \
-    mkdir -p storage && mkdir -p bootstrap/cache && mkdir -p storage/logs && \
-    chmod -R ug+rwx storage bootstrap/cache && \
-    chmod -R ug+rwx storage
+WORKDIR /var/www
 
-CMD php-fpm;
+COPY --chown=appuser:appuser . /var/www
+
+RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache
+
+EXPOSE 9000
+
+CMD ["php-fpm"]
