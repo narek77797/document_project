@@ -8,7 +8,8 @@ pipeline {
                 sh 'composer --version'
                 sh 'cp .env.example .env'
                 sh 'php artisan key:generate'
-                sh 'php artisan passport:keys'
+                sh 'php artisan passport:install'
+                sh 'php artisan passport:keys --force'
             }
         }
         stage("Unit test") {
