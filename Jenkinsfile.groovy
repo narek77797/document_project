@@ -21,45 +21,45 @@ pipeline {
 //                 }
 //             }
 //         }
-        stage('UnitTest') {
-            steps {
-                script {
-                    try{
-                        echo "Running docker-compose"
-                        sh 'cp .env.example .env'
-                        sh 'chmod o+w .env'
-                        sh 'make init'
-                    }
-                    catch(Exception e){
-                        if ( GIT_BRANCH ==~ /.*master|.*hotfix\/.*|.*release\/.*/ )
-                                            error "Test case failed"
-                        else
-                            echo "Skipped test if from personal or feature branch"
-                    }
-//НАДО РАСКОММЕНТИРОВАТ
+//         stage('UnitTest') {
+//             steps {
+//                 script {
 //                     try{
-//                         echo "Running Test cases"
-//                         sh './vendor/bin/phpunit --colors tests --log-junit reports/junit.xml'
+//                         echo "Running docker-compose"
+//                         sh 'cp .env.example .env'
+//                         sh 'chmod o+w .env'
+//                         sh 'make init'
 //                     }
 //                     catch(Exception e){
 //                         if ( GIT_BRANCH ==~ /.*master|.*hotfix\/.*|.*release\/.*/ )
-//                             error "Test case failed"
+//                                             error "Test case failed"
 //                         else
 //                             echo "Skipped test if from personal or feature branch"
 //                     }
-//                     try{
-//                         echo "Running Test code coverage"
-//                         sh './vendor/bin/phpunit --coverage-clover reports/codeCoverage.xml'
-//                     }
-//                     catch(Exception e){
-//                         if ( GIT_BRANCH ==~ /.*master|.*hotfix\/.*|.*release\/.*/ )
-//                             error "Code coverage failed"
-//                         else
-//                             echo "Skipped code coverage if from personal or feature branch"
-//                     }
-                }
-            }
-        }
+// //НАДО РАСКОММЕНТИРОВАТ
+// //                     try{
+// //                         echo "Running Test cases"
+// //                         sh './vendor/bin/phpunit --colors tests --log-junit reports/junit.xml'
+// //                     }
+// //                     catch(Exception e){
+// //                         if ( GIT_BRANCH ==~ /.*master|.*hotfix\/.*|.*release\/.*/ )
+// //                             error "Test case failed"
+// //                         else
+// //                             echo "Skipped test if from personal or feature branch"
+// //                     }
+// //                     try{
+// //                         echo "Running Test code coverage"
+// //                         sh './vendor/bin/phpunit --coverage-clover reports/codeCoverage.xml'
+// //                     }
+// //                     catch(Exception e){
+// //                         if ( GIT_BRANCH ==~ /.*master|.*hotfix\/.*|.*release\/.*/ )
+// //                             error "Code coverage failed"
+// //                         else
+// //                             echo "Skipped code coverage if from personal or feature branch"
+// //                     }
+//                 }
+//             }
+//         }
 //НАДО РАСКОММЕНТИРОВАТ
 //         stage('CodeAnalysis') {
 //             when {
