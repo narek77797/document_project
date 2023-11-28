@@ -26,6 +26,8 @@ pipeline {
                 script {
                     try{
                         echo "Running docker-compose"
+                        sh 'cp .env.example .env'
+                        sh 'chmod o+w .env'
                         sh 'make init'
                     }
                     catch(Exception e){
