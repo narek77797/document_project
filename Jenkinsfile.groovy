@@ -5,11 +5,11 @@ def DOCKER_HUB_USER="narek305"
 def CONTAINER_NAME="jenkins-pipeline"
 
 node {
-    stage('Initialize'){
-        def dockerHome = tool 'myDocker'
-        def mavenHome  = tool 'myMaven'
-        env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
-    }
+//     stage('Initialize'){
+//         def dockerHome = tool 'myDocker'
+//         def mavenHome  = tool 'myMaven'
+//         env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
+//     }
 
     stage('Checkout') {
         checkout scm
