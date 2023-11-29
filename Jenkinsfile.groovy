@@ -9,33 +9,33 @@ node {
         checkout scm
     }
 
-    stage("UnitTests") {
-        steps {
-           script {
-              try {
-                  echo "Running Test cases"
-                  sh "cp .env.development .env"
-                  //sh 'make init-test'
-              }
-              catch(Exception e) {
-                  if ( GIT_BRANCH ==~ /.*master|.*hotfix\/.*|.*release\/.*/ )
-                      error "Test case failed"
-                  else
-                      echo "Skipped test if from personal or feature branch"
-              }
-              try {
-                  echo "Running Test code coverage"
-                  //sh 'make init-test-coverage'
-              }
-              catch(Exception e) {
-                  if ( GIT_BRANCH ==~ /.*master|.*hotfix\/.*|.*release\/.*/ )
-                      error "Code coverage failed"
-                  else
-                      echo "Skipped code coverage if from personal or feature branch"
-              }
-           }
-        }
-    }
+//     stage("UnitTests") {
+//         steps {
+//            script {
+//               try {
+//                   echo "Running Test cases"
+//                   sh "cp .env.development .env"
+//                   //sh 'make init-test'
+//               }
+//               catch(Exception e) {
+//                   if ( GIT_BRANCH ==~ /.*master|.*hotfix\/.*|.*release\/.*/ )
+//                       error "Test case failed"
+//                   else
+//                       echo "Skipped test if from personal or feature branch"
+//               }
+//               try {
+//                   echo "Running Test code coverage"
+//                   //sh 'make init-test-coverage'
+//               }
+//               catch(Exception e) {
+//                   if ( GIT_BRANCH ==~ /.*master|.*hotfix\/.*|.*release\/.*/ )
+//                       error "Code coverage failed"
+//                   else
+//                       echo "Skipped code coverage if from personal or feature branch"
+//               }
+//            }
+//         }
+//     }
 
     stage("Image Prune"){
         imagePrune(CONTAINER_NAME)
