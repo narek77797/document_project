@@ -61,7 +61,7 @@ def imagePrune(containerName){
     try {
 //         sh "docker image prune -f"
 //         sh "docker stop $containerName"
-           sh "docker-compose -f docker-compose.dev.yml down"
+           sh "docker-compose -f docker-compose.dev.yml down --remove-orphans"
     } catch(error){}
 }
 
