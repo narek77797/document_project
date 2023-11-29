@@ -61,13 +61,13 @@ def imagePrune(containerName){
     try {
 //         sh "docker image prune -f"
 //         sh "docker stop $containerName"
-           sh "sudo docker-compose -f docker-compose.dev.yml down"
+           sh "docker-compose -f docker-compose.dev.yml down"
     } catch(error){}
 }
 
 def imageBuild(containerName, tag){
 //     sh "docker build -t $containerName:$tag  -t $containerName --pull --no-cache ."
-    sh "sudo docker-compose -f docker-compose.dev.yml --build"
+    sh "docker-compose -f docker-compose.dev.yml --build"
     echo "Image build complete"
 }
 
@@ -81,6 +81,6 @@ def pushToImage(containerName, tag, dockerUser, dockerPassword){
 def runApp(containerName, tag, dockerHubUser, httpPort){
 //     sh "docker pull $dockerHubUser/$containerName"
 //     sh "docker run -d --rm -p $httpPort:$httpPort --name $containerName $dockerHubUser/$containerName:$tag"
-    sh "sudo docker-compose -f docker-compose.dev.yml up -d"
+    sh "docker-compose -f docker-compose.dev.yml up -d"
     echo "Application started on port: ${httpPort} (http)"
 }
