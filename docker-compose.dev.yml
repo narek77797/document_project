@@ -14,8 +14,8 @@ services:
     container_name: pto-api-nginx
     ports:
       - '${DOCKER_NGINX_PORT:-80}:80'
-    volumes:
-      - ./:/var/www/html:delegated
+#    volumes:
+#      - ./:/var/www/html:delegated
     depends_on:
       - php
       - redis
