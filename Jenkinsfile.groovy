@@ -41,9 +41,9 @@ node {
         imagePrune(CONTAINER_NAME)
     }
 
-    stage('Image Build'){
-        imageBuild(CONTAINER_NAME, CONTAINER_TAG)
-    }
+//     stage('Image Build'){
+//         imageBuild(CONTAINER_NAME, CONTAINER_TAG)
+//     }
 
 //     stage('Push to Docker Registry'){
 //         withCredentials([usernamePassword(credentialsId: 'dockerHubAccount', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
@@ -67,7 +67,7 @@ def imagePrune(containerName){
 
 def imageBuild(containerName, tag){
 //     sh "docker build -t $containerName:$tag  -t $containerName --pull --no-cache ."
-    sh "docker-compose -f docker-compose.dev.yml --build"
+    sh "docker-compose -f docker-compose.dev.yml"
     echo "Image build complete"
 }
 
@@ -81,6 +81,6 @@ def pushToImage(containerName, tag, dockerUser, dockerPassword){
 def runApp(containerName, tag, dockerHubUser, httpPort){
 //     sh "docker pull $dockerHubUser/$containerName"
 //     sh "docker run -d --rm -p $httpPort:$httpPort --name $containerName $dockerHubUser/$containerName:$tag"
-    sh "docker-compose -f docker-compose.dev.yml up -d"
+    sh "docker-compose -f docker-compose.dev.yml up -d --build"
     echo "Application started on port: ${httpPort} (http)"
 }
